@@ -34,10 +34,10 @@ add_action( 'init', function() {
 
 
 // define the wpcf7_form_elements callback 
-function filter_wpcf7_form_elements( $html ) { 
-	$html = str_replace('<label>mon</label>', '<label>12.03</label>', $html);
+function filter_wpcf7_form_elements( $html ) {
+	$received_date = $_GET["order-date"];
+	$html = str_replace('<label>mon</label>', '<label>'.$received_date.'</label>', $html);
 	return $html;
-
 }
 
 
@@ -61,6 +61,12 @@ function debug_hello($posted_data){
 	$current_user = wp_get_current_user();
 
 	 echo '<pre>'.print_r( $current_user->display_name , true ).'</pre>';
+	 echo '<pre>'.print_r(  $posted_data, true ).'</pre>';
+	 var_dump($_GET);
+	 var_dump($_POST);
+	 echo '<pre>'.print_r( $_GET["order-date"], true).'</pre>';
+	 echo '<pre>'.print_r( $_POST["order-date"], true).'</pre>';
+
 	 //echo "<script> alert($posted_data["name"]); </script>"; 
 	 return $posted_data;
 }
@@ -127,7 +133,19 @@ document.addEventListener( 'wpcf7mailsent', function( event ) {
     if ( '10' == event.detail.contactFormId ) {
        location = 'http://r2d2.local/wp/thanks/';
     } else if ('38' == event.detail.contactFormId ) {
-    	location = 'http://r2d2.local/wp/%D1%80%D0%BE%D0%B4%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D1%81%D0%BA%D0%B0%D1%8F-%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B0-%D0%B4%D0%BB%D1%8F-%D1%84%D0%BE%D1%80%D0%BC/orders/';
+		var inputs = event.detail.inputs;
+		var orderDate='2019-01-01';
+		// Ищем поле с именем your-name и злоупотребляем alert'ом при нахождении поля
+		for ( var i = 0; i < inputs.length; i++ ) {
+			if ( 'order-date' == inputs[i].name ) {
+				orderDate = inputs[i].value; //TODO: fix the search method
+				alert( orderDate );
+				break;
+			}
+		}
+		resultingDate = orderDate.split("-");
+		var theDate = resultingDate[2]+'.'+resultingDate[1];
+    	location = 'http://r2d2.local/wp/%D1%80%D0%BE%D0%B4%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D1%81%D0%BA%D0%B0%D1%8F-%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B0-%D0%B4%D0%BB%D1%8F-%D1%84%D0%BE%D1%80%D0%BC/orders/?order-date=' + theDate;
     	   
     } 
 }, false );
