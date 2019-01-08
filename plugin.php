@@ -51,11 +51,12 @@ function filter_wpcf7_form_elements( $html ) {
 		$html = str_replace('<label>sun</label>', '<label>'.convert_date($week_dates[6]).'</label>', $html);
 
 		$positions = get_positions_order_from_db('2018-10-08', '2018-10-14', 3);
-		echo " got the positions ".$positions['2018-10-08'][2];
+
+		$select = '<input type="number" name="'.get_weekday('2018-10-08').'_2" value="" class="wpcf7-form-control wpcf7-number wpcf7-validates-as-number" id="'.get_weekday('2018-10-08').'_2" min="0" aria-invalid="false" placeholder="'.$positions['2018-10-08'][2].'">';
+		$html = preg_replace('/<input type="number" name="'.get_weekday('2018-10-08').'_2".*>/iU', $select, $html);
 	}
 	// elseif ($pre_form_id  == $form->id()){
 	// 	$received_data = get_prefetch_data_from_db();
-	// 	//var_dump($received_data);
 
 	// 	$string = '<input type="text" name="your-name" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false">';
 	// 	$pattern = '/\<(.*) name="your-name" (.*)\>/i';
@@ -67,20 +68,14 @@ function filter_wpcf7_form_elements( $html ) {
 	// 	$matches = false;
 	// 	preg_match('/<input type="text" name="your-name".*[^>]*>(.*)>/iU', $html, $matches); 
 	// 	if ($matches) {
-	// 		$select = '<input type="text" name="your-name" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="here is my text">';
-	// 		$html = preg_replace('/<input type="text" name="your-name".*[^>]*>(.*)>/iU', $select, $html);
+			// $select = '<input type="text" name="your-name" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="here is my text">';
+			// $html = preg_replace('/<input type="text" name="your-name".*[^>]*>(.*)>/iU', $select, $html);
 	// 	}
-
-
 
 		// $html = str_replace(
 		// 	'<input type=\"text\" name=\"your-name\" value=\"\" size=\"40\" class=\"wpcf7-form-control wpcf7-text wpcf7-validates-as-required\" aria-required=\"true\" aria-invalid=\"false\">',
 		//  	'<input type=\"text\" name=\"your-name\" value=\"XXX\" size=\"40\" class=\"wpcf7-form-control wpcf7-text wpcf7-validates-as-required\" aria-required=\"true\" aria-invalid=\"false\" placeholder=\"here is my text\">', 
 		//  	$html);
-
-	//	<input type="text" name="your-name" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false">
-
-	//	<input type="text" name="your-name" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="here is my text">
 	// }
 	return $html;
 }
@@ -237,6 +232,12 @@ function get_week($date){
 function convert_date($date){
 	$res = explode("-", $date);
 	return $res[2].'.'.$res[1];
+}
+
+function get_weekday($date){
+	$date_stamp = strtotime(date('Y-m-d', strtotime($date)));
+	$stamp = date('D', $date_stamp);
+	return strtolower($stamp);
 }
 
 add_action( 'wp_footer', 'cf7_redirect' );
