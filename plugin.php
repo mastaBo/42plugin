@@ -49,6 +49,9 @@ function filter_wpcf7_form_elements( $html ) {
 		$html = str_replace('<label>fri</label>', '<label>'.convert_date($week_dates[4]).'</label>', $html);
 		$html = str_replace('<label>sat</label>', '<label>'.convert_date($week_dates[5]).'</label>', $html);
 		$html = str_replace('<label>sun</label>', '<label>'.convert_date($week_dates[6]).'</label>', $html);
+
+		$positions = get_positions_order_from_db('2018-10-08', '2018-10-14', 3);
+		echo " got the positions ".$positions['2018-10-08'][2];
 	}
 	// elseif ($pre_form_id  == $form->id()){
 	// 	$received_data = get_prefetch_data_from_db();
@@ -83,14 +86,6 @@ function filter_wpcf7_form_elements( $html ) {
 }
 
 function my_wpcf7_form_elements($html) {
-	function ov3rfly_replace_include_blank($name, $text, &$html) {
-		$matches = false;
-		preg_match('/<select name="' . $name . '"[^>]*>(.*)<\/select>/iU', $html, $matches);
-		if ($matches) {
-			$select = str_replace('<option value="">---</option>', '<option value="">' . $text . '</option>', $matches[0]);
-			$html = preg_replace('/<select name="' . $name . '"[^>]*>(.*)<\/select>/iU', $select, $html);
-		}
-	}
 	
 	function ov3rfly_replace_defaults($name, $type, $text, &$html) {
 		$matches = false;
@@ -101,7 +96,6 @@ function my_wpcf7_form_elements($html) {
 			$html = preg_replace('/<input type="'.$type.'" name="'.$name.'"(.*)>/iU', $select, $html);
 		}
 	}
-	ov3rfly_replace_include_blank('menu-296', 'zigota', $html);
 
 	$received_data = get_prefetch_data_from_db();
 
@@ -115,7 +109,7 @@ function my_wpcf7_form_elements($html) {
 }
 add_filter('wpcf7_form_elements', 'my_wpcf7_form_elements');
 
-//getting the data from database to fill the fields in db
+//getting the data from database to fill the fields in form
 function get_prefetch_data_from_db(){
 	global $wpdb;
 
@@ -129,6 +123,28 @@ function get_prefetch_data_from_db(){
 	//var_dump($fetched_data);
 	return $fetched_data;
 }
+
+// get the positions order quantity for specific dates
+function get_positions_order_from_db($date_start, $date_end, $id){
+	global $wpdb;
+	$results = array(array());
+	$positions_quantity = $wpdb->get_results( 
+	"
+	SELECT position_id, quantity, date FROM 42_positions_order 
+	WHERE 
+	(42_positions_order.date BETWEEN '2018-10-08' AND '2018-10-14')
+	AND order_id=3 
+	"
+	);
+	foreach ( $positions_quantity as $position ) 
+	{
+		$results[$position->date][$position->position_id] = $position->quantity;
+	}
+	return $results;
+}
+
+
+// SELECT * FROM `42_positions_order` WHERE date='2018-10-08' AND order_id=3
          
 // add the filter 
 add_filter( 'wpcf7_form_elements', 'filter_wpcf7_form_elements', 10, 1 ); 
