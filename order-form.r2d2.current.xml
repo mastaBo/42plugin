@@ -1,0 +1,627 @@
+<div class="container">
+  <div class="row">
+    <div class="columns five">
+      <div class="container">
+        <div class="row">
+          <div class="columns full">
+            <div class="field"><label>Товары</label>
+              <p class="info-tip"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="columns full">
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="columns full">
+            <div class="field"><label>Круассан</label>
+              <p class="info-tip"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="columns full">
+            <div class="field"><label>Миндальный круассан</label>
+              <p class="info-tip"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="columns full">
+            <div class="field"><label>Краффин с черной смородиной</label>
+              <p class="info-tip"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="columns full">
+            <div class="field"><label>Краффин с мандариново-лимонным мармеладом</label>
+              <p class="info-tip"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="columns full">
+            <div class="field"><label>Краффин "Орешек"</label>
+              <p class="info-tip"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="columns full">
+            <div class="field"><label>Крассан цельнозерновой</label>
+              <p class="info-tip"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="columns one">
+      <div class="container">
+        <div class="row">
+          <div class="columns full">
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                  <div class="field"><label>mon</label>
+                    <p class="info-tip"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                  <div class="field">[number mon_kru id:mon_kru1 placeholder "0"]
+                    <p class="info-tip"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                  <div class="field">[number mon_kru id:mon_kru2 placeholder "0"]
+                    <p class="info-tip"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                  <div class="field">[number mon_kru id:mon_kru3 placeholder "0"]
+                    <p class="info-tip"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                  <div class="field">[number mon_kru id:mon_kru4 placeholder "0"]
+                    <p class="info-tip"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                  <div class="field">[number mon_kru id:mon_kru5 placeholder "0"]
+                    <p class="info-tip"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                  <div class="field">[number mon_kru id:mon_kru6 placeholder "0"]
+                    <p class="info-tip"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="columns one">
+      <div class="container">
+        <div class="row">
+          <div class="columns full">
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                  <div class="field"><label>tue</label>
+                    <p class="info-tip"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                  <div class="field">[number tue_kru id:tue_kru1 placeholder "0"]
+                    <p class="info-tip"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                  <div class="field">[number tue_kru id:tue_kru2 placeholder "0"]
+                    <p class="info-tip"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                  <div class="field">[number tue_kru id:tue_kru3 placeholder "0"]
+                    <p class="info-tip"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                  <div class="field">[number tue_kru id:tue_kru4 placeholder "0"]
+                    <p class="info-tip"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                  <div class="field">[number tue_kru id:tue_kru5 placeholder "0"]
+                    <p class="info-tip"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                  <div class="field">[number tue_kru id:tue_kru6 placeholder "0"]
+                    <p class="info-tip"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="columns one">
+      <div class="container">
+        <div class="row">
+          <div class="columns full">
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                  <div class="field"><label>wed</label>
+                    <p class="info-tip"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                  <div class="field">[number wed_kru id:wed_kru1 placeholder "0"]
+                    <p class="info-tip"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                  <div class="field">[number wed_kru id:wed_kru2 placeholder "0"]
+                    <p class="info-tip"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                  <div class="field">[number wed_kru id:wed_kru3 placeholder "0"]
+                    <p class="info-tip"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                  <div class="field">[number wed_kru id:wed_kru4 placeholder "0"]
+                    <p class="info-tip"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                  <div class="field">[number wed_kru id:wed_kru5 placeholder "0"]
+                    <p class="info-tip"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                  <div class="field">[number wed_kru id:wed_kru6 placeholder "0"]
+                    <p class="info-tip"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="columns one">
+      <div class="container">
+        <div class="row">
+          <div class="columns full">
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                  <div class="field"><label>thu</label>
+                    <p class="info-tip"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                  <div class="field">[number thu_kru id:thu_kru1 placeholder "0"]
+                    <p class="info-tip"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                  <div class="field">[number thu_kru id:thu_kru2 placeholder "0"]
+                    <p class="info-tip"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                  <div class="field">[number thu_kru id:thu_kru3 placeholder "0"]
+                    <p class="info-tip"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                  <div class="field">[number thu_kru id:thu_kru4 placeholder "0"]
+                    <p class="info-tip"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                  <div class="field">[number thu_kru id:thu_kru5 placeholder "0"]
+                    <p class="info-tip"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                  <div class="field">[number thu_kru id:thu_kru6 placeholder "0"]
+                    <p class="info-tip"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="columns one">
+      <div class="container">
+        <div class="row">
+          <div class="columns full">
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                  <div class="field"><label>fri</label>
+                    <p class="info-tip"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                  <div class="field">[number fri_kru id:fri_kru1 placeholder "0"]
+                    <p class="info-tip"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                  <div class="field">[number fri_kru id:fri_kru2 placeholder "0"]
+                    <p class="info-tip"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                  <div class="field">[number fri_kru id:fri_kru3 placeholder "0"]
+                    <p class="info-tip"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                  <div class="field">[number fri_kru id:fri_kru4 placeholder "0"]
+                    <p class="info-tip"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                  <div class="field">[number fri_kru id:fri_kru5 placeholder "0"]
+                    <p class="info-tip"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                  <div class="field">[number fri_kru id:fri_kru6 placeholder "0"]
+                    <p class="info-tip"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="columns one">
+      <div class="container">
+        <div class="row">
+          <div class="columns full">
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                  <div class="field"><label>sat</label>
+                    <p class="info-tip"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                  <div class="field">[number sat_kru id:sat_kru1 placeholder "0"]
+                    <p class="info-tip"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                  <div class="field">[number sat_kru id:sat_kru2 placeholder "0"]
+                    <p class="info-tip"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                  <div class="field">[number sat_kru id:sat_kru3 placeholder "0"]
+                    <p class="info-tip"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                  <div class="field">[number sat_kru id:sat_kru4 placeholder "0"]
+                    <p class="info-tip"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                  <div class="field">[number sat_kru id:sat_kru5 placeholder "0"]
+                    <p class="info-tip"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                  <div class="field">[number sat_kru id:sat_kru6 placeholder "0"]
+                    <p class="info-tip"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="columns one">
+      <div class="container">
+        <div class="row">
+          <div class="columns full">
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                  <div class="field"><label>sun</label>
+                    <p class="info-tip"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                  <div class="field">[number sun_kru id:sun_kru1 placeholder "0"]
+                    <p class="info-tip"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                  <div class="field">[number sun_kru id:sun_kru2 placeholder "0"]
+                    <p class="info-tip"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                  <div class="field">[number sun_kru id:sun_kru3 placeholder "0"]
+                    <p class="info-tip"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                  <div class="field">[number sun_kru id:sun_kru4 placeholder "0"]
+                    <p class="info-tip"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                  <div class="field">[number sun_kru id:sun_kru5 placeholder "0"]
+                    <p class="info-tip"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="columns full">
+                  <div class="field">[number sun_kru id:sun_kru6 placeholder "0"]
+                    <p class="info-tip"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="columns one-fourth">
+      <div class="field"><label></label>[acceptance acceptance-151] Подтверждаю [/acceptance]
+        <p class="info-tip"></p>
+      </div>
+    </div>
+    <div class="columns one-fourth">
+      <div class="field"><label></label>[checkbox basic-order id:basic-order "сделать базовым заказом"]
+        <p class="info-tip"></p>
+      </div>
+    </div>
+    <div class="columns one-half">
+      <div class="field"><label></label>[submit "Отправить"]
+        <p class="info-tip"></p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -40,7 +40,15 @@ function filter_wpcf7_form_elements( $html ) {
 	$form = wpcf7_get_current_contact_form();
 	if ($main_form_id == $form->id()){
 		$received_date = $_GET["order-date"];
-		$html = str_replace('<label>mon</label>', '<label>'.$received_date.'</label>', $html);
+		echo " The received date is ".$received_date;
+		$week_dates = get_week($received_date);
+		$html = str_replace('<label>mon</label>', '<label>'.convert_date($week_dates[0]).'</label>', $html);
+		$html = str_replace('<label>tue</label>', '<label>'.convert_date($week_dates[1]).'</label>', $html);
+		$html = str_replace('<label>wed</label>', '<label>'.convert_date($week_dates[2]).'</label>', $html);
+		$html = str_replace('<label>thu</label>', '<label>'.convert_date($week_dates[3]).'</label>', $html);
+		$html = str_replace('<label>fri</label>', '<label>'.convert_date($week_dates[4]).'</label>', $html);
+		$html = str_replace('<label>sat</label>', '<label>'.convert_date($week_dates[5]).'</label>', $html);
+		$html = str_replace('<label>sun</label>', '<label>'.convert_date($week_dates[6]).'</label>', $html);
 	}
 	// elseif ($pre_form_id  == $form->id()){
 	// 	$received_data = get_prefetch_data_from_db();
@@ -97,9 +105,9 @@ function my_wpcf7_form_elements($html) {
 
 	$received_data = get_prefetch_data_from_db();
 
-	ov3rfly_replace_defaults('your-name', 'text', $received_data->name, $html);
-	ov3rfly_replace_defaults('your-subject', 'text', $received_data->subject, $html);
-	ov3rfly_replace_defaults('your-email', 'email', $received_data->mail, $html);
+	//ov3rfly_replace_defaults('your-name', 'text', $received_data->name, $html);
+	//ov3rfly_replace_defaults('your-subject', 'text', $received_data->subject, $html);
+	ov3rfly_replace_defaults('order-date', 'date', $received_data->value, $html);
 	
 	// <input type="email" name="your-email" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" aria-required="true" aria-invalid="false">
 
@@ -111,15 +119,15 @@ add_filter('wpcf7_form_elements', 'my_wpcf7_form_elements');
 function get_prefetch_data_from_db(){
 	global $wpdb;
 
-	$fetched_data = $wpdb->get_results( 
+	$fetched_data = $wpdb->get_row( 
 	"
 	SELECT name, subject, mail, value 
 	FROM tmp_submission
-	WHERE id = 0 
+	WHERE id = 1 
 	"
 	);
-	var_dump($fetched_data);
-	return $fetched_data[0];
+	//var_dump($fetched_data);
+	return $fetched_data;
 }
          
 // add the filter 
@@ -186,22 +194,37 @@ function action_wpcf7_data( $posted_data ) {
 
 add_filter( 'wpcf7_posted_data', 'action_wpcf7_data', 10, 1 ); 
 
+//the input is any date in yyyy-mm-dd format and output is the array with 7 dates set according to the week this date belongs. 
+function get_week($date){
+    $date_stamp = strtotime(date('Y-m-d', strtotime($date)));
 
-// function update_date_labels($tag){
+     //check date is sunday or monday
+    $stamp = date('l', $date_stamp);      
 
-// 	 if($tag['name'] == 'date-start') {
-// 	 	echo '<pre>'.print_r( $tag['value'], true).'</pre>';
-// 	 }
-// 	 //echo "<script> alert($posted_data["name"]); </script>"; 
-// 	 return $tag;
-// }
-     
-// add_filter('wpcf7_posted_data','debug_filter');
+    if($stamp == 'Mon'){
+        $monday = $date;
+    }else{
+        $monday = date('Y-m-d', strtotime('Last Monday', $date_stamp));
+    }
 
-// add_filter('wpcf7_before_send_mail','filter_wpcf7_form_elements');
+    $thuesday = date('Y-m-d', strtotime($monday."+1 day"));
+    $wednesday = date('Y-m-d', strtotime($monday."+2 days"));
+    $thursday = date('Y-m-d', strtotime($monday."+3 days"));
+    $friday = date('Y-m-d', strtotime($monday."+4 days"));
+    $saturday = date('Y-m-d', strtotime($monday."+5 days"));
+    $sunday = date('Y-m-d', strtotime($monday."+6 days"));
+          
+    return array($monday, $thuesday, $wednesday, $thursday, $friday, $saturday, $sunday);
+}
 
+//converts date from yyyy-mm-dd format into russian style dd.mm format
+function convert_date($date){
+	$res = explode("-", $date);
+	return $res[2].'.'.$res[1];
+}
 
 add_action( 'wp_footer', 'cf7_redirect' );
+//add_action( 'wp_footer', 'cf7_check_params_on_submit' );
 //add_filter( 'the_content', 'debug_hello' );
 add_filter('wpcf7_form_name_attr', 'debug_hello', 10, 3);
 // add_filter( 'wpcf7_form_tag', 'update_date_labels', 10, 2);
@@ -231,7 +254,7 @@ document.addEventListener( 'wpcf7mailsent', function( event ) {
 		}
 		resultingDate = orderDate.split("-");
 		var theDate = resultingDate[2]+'.'+resultingDate[1];
-    	// location = 'http://r2d2.local/wp/%D1%80%D0%BE%D0%B4%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D1%81%D0%BA%D0%B0%D1%8F-%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B0-%D0%B4%D0%BB%D1%8F-%D1%84%D0%BE%D1%80%D0%BC/orders/?order-date=' + theDate;
+    	location = 'http://r2d2.local/wp/%D1%80%D0%BE%D0%B4%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D1%81%D0%BA%D0%B0%D1%8F-%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B0-%D0%B4%D0%BB%D1%8F-%D1%84%D0%BE%D1%80%D0%BC/orders/?order-date=' + orderDate;
     	   
     } 
 }, false );
@@ -239,17 +262,22 @@ document.addEventListener( 'wpcf7mailsent', function( event ) {
 <?php
 }
 
+function cf7_check_params_on_submit() {
+	?>
+	<script type="text/javascript">
+	document.addEventListener( 'wpcf7submit', function( event ) {
+		if ('38' == event.detail.contactFormId ) {
+			var inputs = event.detail.inputs;
+			for ( var i = 0; i < inputs.length; i++ ) {
+				if ( 'order-date' == inputs[i].name ) {
+					orderDate = inputs[i].value; 
+					alert( orderDate );
+					break;
+				}
+			}
+		}
+	}	
+	</script>
+<?php
+}
 
-// add the filter 
-// add_action('wpcf7_before_send_mail', 'printDatas');
-
-// function printDatas($cf7) {
-// echo 'printDatas';
-// global $wpdb;
-// //declare your varialbes, for example:
-// $id = $cf7->posted_data[“id”];
-// $first_name = $cf7->posted_data[“your-name”];
-// $email_txt = $cf7->posted_data[“email-id”];
-// echo $first_name;
-// echo $email_txt;
-// }
