@@ -2,294 +2,238 @@
   <div class="row">
     <div class="columns five">
       <div class="field"><label><b>Товары</b></label>
-        <p class="info-tip"></p>
       </div>
     </div>
     <div class="columns one">
       <div class="field"><label>пн</label>
-        <p class="info-tip"></p>
       </div>
     </div>
     <div class="columns one">
       <div class="field"><label>вт</label>
-        <p class="info-tip"></p>
       </div>
     </div>
     <div class="columns one">
       <div class="field"><label>ср</label>
-        <p class="info-tip"></p>
       </div>
     </div>
     <div class="columns one">
       <div class="field"><label>чт</label>
-        <p class="info-tip"></p>
       </div>
     </div>
     <div class="columns one">
       <div class="field"><label>пт</label>
-        <p class="info-tip"></p>
       </div>
     </div>
     <div class="columns one">
       <div class="field"><label>сб</label>
-        <p class="info-tip"></p>
       </div>
     </div>
     <div class="columns one">
       <div class="field"><label>вс</label>
-        <p class="info-tip"></p>
       </div>
     </div>
   </div>
   <div class="row">
     <div class="columns five">
       <div class="field"><label>Круассан</label>
-        <p class="info-tip"></p>
       </div>
     </div>
     <div class="columns one">
-      <div class="field">[number mon_kru1 id:mon_kru1 min:0 placeholder "0"]
-        <p class="info-tip"></p>
+      <div class="field">[number mon_14 id:mon_14 min:0 placeholder "0"]
       </div>
     </div>
     <div class="columns one">
-      <div class="field">[number tue_kru1 id:tue_kru1 min:0 placeholder "0"]
-        <p class="info-tip"></p>
+      <div class="field">[number tue_14 id:tue_14 min:0 placeholder "0"]
       </div>
     </div>
     <div class="columns one">
-      <div class="field">[number wed_kru1 id:wed_kru1 min:0 placeholder "0"]
-        <p class="info-tip"></p>
+      <div class="field">[number wed_14 id:wed_14 min:0 placeholder "0"]
       </div>
     </div>
     <div class="columns one">
-      <div class="field">[number thu_kru1 id:thu_kru1 min:0 placeholder "0"]
-        <p class="info-tip"></p>
+      <div class="field">[number thu_14 id:thu_14 min:0 placeholder "0"]
       </div>
     </div>
     <div class="columns one">
-      <div class="field">[number fri_kru1 id:fri_kru1 min:0 placeholder "0"]
-        <p class="info-tip"></p>
+      <div class="field">[number fri_14 id:fri_14 min:0 placeholder "0"]
       </div>
     </div>
     <div class="columns one">
-      <div class="field">[number sut_kru1 id:sut_kru1 min:0 placeholder "0"]
-        <p class="info-tip"></p>
+      <div class="field">[number sut_14 id:sut_14 min:0 placeholder "0"]
       </div>
     </div>
     <div class="columns one">
-      <div class="field">[number sun_kru1 id:sun_kru1 min:0 placeholder "0"]
-        <p class="info-tip"></p>
+      <div class="field">[number sun_14 id:sun_14 min:0 placeholder "0"]
       </div>
     </div>
   </div>
   <div class="row">
     <div class="columns five">
       <div class="field"><label>Миндальный круассан</label>
-        <p class="info-tip"></p>
       </div>
     </div>
     <div class="columns one">
-      <div class="field">[number mon_kru2 id:mon_kru2 min:0 placeholder "0"]
-        <p class="info-tip"></p>
+      <div class="field">[number mon_6 id:mon_6 min:0 placeholder "0"]
       </div>
     </div>
     <div class="columns one">
-      <div class="field">[number tue_kru2 id:tue_kru2 min:0 placeholder "0"]
-        <p class="info-tip"></p>
+      <div class="field">[number tue_6 id:tue_6 min:0 placeholder "0"]
       </div>
     </div>
     <div class="columns one">
-      <div class="field">[number wed_kru2 id:wed_kru2 min:0 placeholder "0"]
-        <p class="info-tip"></p>
+      <div class="field">[number wed_6 id:wed_6 min:0 placeholder "0"]
       </div>
     </div>
     <div class="columns one">
-      <div class="field">[number thu_kru2 id:thu_kru2 min:0 placeholder "0"]
-        <p class="info-tip"></p>
+      <div class="field">[number thu_6 id:thu_6 min:0 placeholder "0"]
       </div>
     </div>
     <div class="columns one">
-      <div class="field">[number fri_kru2 id:fri_kru2 min:0 placeholder "0"]
-        <p class="info-tip"></p>
+      <div class="field">[number fri_6 id:fri_6 min:0 placeholder "0"]
       </div>
     </div>
     <div class="columns one">
-      <div class="field">[number sut_kru2 id:sut_kru2 min:0 placeholder "0"]
-        <p class="info-tip"></p>
+      <div class="field">[number sut_6 id:sut_6 min:0 placeholder "0"]
       </div>
     </div>
     <div class="columns one">
-      <div class="field">[number sun_kru2 id:sun_kru2 min:0 placeholder "0"]
-        <p class="info-tip"></p>
+      <div class="field">[number sun_6 id:sun_6 min:0 placeholder "0"]
       </div>
     </div>
   </div>
   <div class="row">
     <div class="columns five">
       <div class="field"><label>Краффин с черной смородиной</label>
-        <p class="info-tip"></p>
       </div>
     </div>
     <div class="columns one">
-      <div class="field">[number mon_kru3 id:mon_kru3 min:0 placeholder "0"]
-        <p class="info-tip"></p>
+      <div class="field">[number mon_1 id:mon_1 min:0 placeholder "0"]
       </div>
     </div>
     <div class="columns one">
-      <div class="field">[number tue_kru3 id:tue_kru3 min:0 placeholder "0"]
-        <p class="info-tip"></p>
+      <div class="field">[number tue_1 id:tue_1 min:0 placeholder "0"]
       </div>
     </div>
     <div class="columns one">
-      <div class="field">[number wed_kru3 id:wed_kru3 min:0 placeholder "0"]
-        <p class="info-tip"></p>
+      <div class="field">[number wed_1 id:wed_1 min:0 placeholder "0"]
       </div>
     </div>
     <div class="columns one">
-      <div class="field">[number thu_kru3 id:thu_kru3 min:0 placeholder "0"]
-        <p class="info-tip"></p>
+      <div class="field">[number thu_1 id:thu_1 min:0 placeholder "0"]
       </div>
     </div>
     <div class="columns one">
-      <div class="field">[number fri_kru3 id:fri_kru3 min:0 placeholder "0"]
-        <p class="info-tip"></p>
+      <div class="field">[number fri_1 id:fri_1 min:0 placeholder "0"]
       </div>
     </div>
     <div class="columns one">
-      <div class="field">[number sut_kru3 id:sut_kru3 min:0 placeholder "0"]
-        <p class="info-tip"></p>
+      <div class="field">[number sut_1 id:sut_1 min:0 placeholder "0"]
       </div>
     </div>
     <div class="columns one">
-      <div class="field">[number sun_kru3 id:sun_kru3 min:0 placeholder "0"]
-        <p class="info-tip"></p>
+      <div class="field">[number sun_1 id:sun_1 min:0 placeholder "0"]
       </div>
     </div>
   </div>
   <div class="row">
     <div class="columns five">
       <div class="field"><label>Краффин с мандариново-лимонным мармеладом</label>
-        <p class="info-tip"></p>
       </div>
     </div>
     <div class="columns one">
-      <div class="field">[number mon_kru4 id:mon_kru4 min:0 placeholder "0"]
-        <p class="info-tip"></p>
+      <div class="field">[number mon_2 id:mon_2 min:0 placeholder "0"]
       </div>
     </div>
     <div class="columns one">
-      <div class="field">[number tue_kru4 id:tue_kru4 min:0 placeholder "0"]
-        <p class="info-tip"></p>
+      <div class="field">[number tue_2 id:tue_2 min:0 placeholder "0"]
       </div>
     </div>
     <div class="columns one">
-      <div class="field">[number wed_kru4 id:wed_kru4 min:0 placeholder "0"]
-        <p class="info-tip"></p>
+      <div class="field">[number wed_2 id:wed_2 min:0 placeholder "0"]
       </div>
     </div>
     <div class="columns one">
-      <div class="field">[number thu_kru4 id:thu_kru4 min:0 placeholder "0"]
-        <p class="info-tip"></p>
+      <div class="field">[number thu_2 id:thu_2 min:0 placeholder "0"]
       </div>
     </div>
     <div class="columns one">
-      <div class="field">[number fri_kru4 id:fri_kru4 min:0 placeholder "0"]
-        <p class="info-tip"></p>
+      <div class="field">[number fri_2 id:fri_2 min:0 placeholder "0"]
       </div>
     </div>
     <div class="columns one">
-      <div class="field">[number sut_kru4 id:sut_kru4 min:0 placeholder "0"]
-        <p class="info-tip"></p>
+      <div class="field">[number sut_2 id:sut_2 min:0 placeholder "0"]
       </div>
     </div>
     <div class="columns one">
-      <div class="field">[number sun_kru4 id:sun_kru4 min:0 placeholder "0"]
-        <p class="info-tip"></p>
+      <div class="field">[number sun_2 id:sun_2 min:0 placeholder "0"]
       </div>
     </div>
   </div>
   <div class="row">
     <div class="columns five">
       <div class="field"><label>Краффин "Орешек"</label>
-        <p class="info-tip"></p>
       </div>
     </div>
     <div class="columns one">
-      <div class="field">[number mon_kru5 id:mon_kru5 min:0 placeholder "0"]
-        <p class="info-tip"></p>
+      <div class="field">[number mon_3 id:mon_3 min:0 placeholder "0"]
       </div>
     </div>
     <div class="columns one">
-      <div class="field">[number tue_kru5 id:tue_kru5 min:0 placeholder "0"]
-        <p class="info-tip"></p>
+      <div class="field">[number tue_3 id:tue_3 min:0 placeholder "0"]
       </div>
     </div>
     <div class="columns one">
-      <div class="field">[number wed_kru5 id:wed_kru5 min:0 placeholder "0"]
-        <p class="info-tip"></p>
+      <div class="field">[number wed_3 id:wed_3 min:0 placeholder "0"]
       </div>
     </div>
     <div class="columns one">
-      <div class="field">[number thu_kru5 id:thu_kru5 min:0 placeholder "0"]
-        <p class="info-tip"></p>
+      <div class="field">[number thu_3 id:thu_3 min:0 placeholder "0"]
       </div>
     </div>
     <div class="columns one">
-      <div class="field">[number fri_kru5 id:fri_kru5 min:0 placeholder "0"]
-        <p class="info-tip"></p>
+      <div class="field">[number fri_3 id:fri_3 min:0 placeholder "0"]
       </div>
     </div>
     <div class="columns one">
-      <div class="field">[number sut_kru5 id:sut_kru5 min:0 placeholder "0"]
-        <p class="info-tip"></p>
+      <div class="field">[number sut_3 id:sut_3 min:0 placeholder "0"]
       </div>
     </div>
     <div class="columns one">
-      <div class="field">[number sun_kru5 id:sun_kru5 min:0 placeholder "0"]
-        <p class="info-tip"></p>
+      <div class="field">[number sun_3 id:sun_3 min:0 placeholder "0"]
       </div>
     </div>
   </div>
   <div class="row">
     <div class="columns five">
       <div class="field"><label>Крассан цельнозерновой</label>
-        <p class="info-tip"></p>
       </div>
     </div>
     <div class="columns one">
-      <div class="field">[number mon_kru6 id:mon_kru6 min:0 placeholder "0"]
-        <p class="info-tip"></p>
+      <div class="field">[number mon_4 id:mon_4 min:0 placeholder "0"]
       </div>
     </div>
     <div class="columns one">
-      <div class="field">[number tue_kru6 id:tue_kru6 min:0 placeholder "0"]
-        <p class="info-tip"></p>
+      <div class="field">[number tue_4 id:tue_4 min:0 placeholder "0"]
       </div>
     </div>
     <div class="columns one">
-      <div class="field">[number wed_kru6 id:wed_kru6 min:0 placeholder "0"]
-        <p class="info-tip"></p>
+      <div class="field">[number wed_4 id:wed_4 min:0 placeholder "0"]
       </div>
     </div>
     <div class="columns one">
-      <div class="field">[number thu_kru6 id:thu_kru6 min:0 placeholder "0"]
-        <p class="info-tip"></p>
+      <div class="field">[number thu_4 id:thu_4 min:0 placeholder "0"]
       </div>
     </div>
     <div class="columns one">
-      <div class="field">[number fri_kru6 id:fri_kru6 min:0 placeholder "0"]
-        <p class="info-tip"></p>
+      <div class="field">[number fri_4 id:fri_4 min:0 placeholder "0"]
       </div>
     </div>
     <div class="columns one">
-      <div class="field">[number sut_kru6 id:sut_kru6 min:0 placeholder "0"]
-        <p class="info-tip"></p>
+      <div class="field">[number sut_4 id:sut_4 min:0 placeholder "0"]
       </div>
     </div>
     <div class="columns one">
-      <div class="field">[number sun_kru6 id:sun_kru5 min:0 placeholder "0"]
-        <p class="info-tip"></p>
+      <div class="field">[number sun_4 id:sun_3 min:0 placeholder "0"]
       </div>
     </div>
   </div>
@@ -298,12 +242,10 @@
   <div class="row">
     <div class="columns one-half">
       <div class="field"><label>Имя<em>*</em></label>[text* name-field placeholder "Иван Петров"]
-        <p class="info-tip"></p>
       </div>
     </div>
     <div class="columns one-half">
       <div class="field"><label>Почта<em>*</em></label>[email* email-field placeholder "your@e.mail"]
-        <p class="info-tip"></p>
       </div>
     </div>
   </div>
@@ -312,17 +254,14 @@
   <div class="row">
     <div class="columns one-fourth">
       <div class="field"><label></label>[acceptance acceptance-151] Подтверждаю [/acceptance]
-        <p class="info-tip"></p>
       </div>
     </div>
     <div class="columns one-fourth">
       <div class="field"><label>Первый день заказа<em>*</em></label>[date* date-start min:2018-11-05 step:7]
-        <p class="info-tip"></p>
       </div>
     </div>
     <div class="columns one-half">
       <div class="field"><label></label>[submit "Отправить"]
-        <p class="info-tip"></p>
       </div>
     </div>
   </div>
