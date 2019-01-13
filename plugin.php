@@ -40,8 +40,18 @@ function filter_wpcf7_form_elements( $html ) {
 	$form = wpcf7_get_current_contact_form();
 	if ($main_form_id == $form->id()){
 		$received_date = $_GET["order-date"];
+		$username = $_GET["username"];
 		echo " The received date is ".$received_date;
 		$week_dates = get_week($received_date);
+
+		$html = str_replace('<label>пн</label>', '<label>'.convert_date($week_dates[0]).'</label>', $html);
+		$html = str_replace('<label>вт</label>', '<label>'.convert_date($week_dates[1]).'</label>', $html);
+		$html = str_replace('<label>ср</label>', '<label>'.convert_date($week_dates[2]).'</label>', $html);
+		$html = str_replace('<label>чт</label>', '<label>'.convert_date($week_dates[3]).'</label>', $html);
+		$html = str_replace('<label>пт</label>', '<label>'.convert_date($week_dates[4]).'</label>', $html);
+		$html = str_replace('<label>сб</label>', '<label>'.convert_date($week_dates[5]).'</label>', $html);
+		$html = str_replace('<label>вс</label>', '<label>'.convert_date($week_dates[6]).'</label>', $html);
+
 		$html = str_replace('<label>mon</label>', '<label>'.convert_date($week_dates[0]).'</label>', $html);
 		$html = str_replace('<label>tue</label>', '<label>'.convert_date($week_dates[1]).'</label>', $html);
 		$html = str_replace('<label>wed</label>', '<label>'.convert_date($week_dates[2]).'</label>', $html);
@@ -50,8 +60,13 @@ function filter_wpcf7_form_elements( $html ) {
 		$html = str_replace('<label>sat</label>', '<label>'.convert_date($week_dates[5]).'</label>', $html);
 		$html = str_replace('<label>sun</label>', '<label>'.convert_date($week_dates[6]).'</label>', $html);
 
-		$positions = get_positions_order_from_db('2018-10-08', '2018-10-14', 3);
-
+		$point_id=get_client_point($username);
+		echo " point ID ".$point_id;
+		$order_id = get_client_order('2018-10-08', '2018-10-14', $point_id);
+		echo " order ID ".$order_id;
+		$positions = get_positions_order('2018-10-08', '2018-10-14', $order_id);
+		//position_id, quantity, date
+		echo " positions ".var_dump($positions);
 		$select = '<input type="number" name="'.get_weekday('2018-10-08').'_2" value="" class="wpcf7-form-control wpcf7-number wpcf7-validates-as-number" id="'.get_weekday('2018-10-08').'_2" min="0" aria-invalid="false" placeholder="'.$positions['2018-10-08'][2].'">';
 		$html = preg_replace('/<input type="number" name="'.get_weekday('2018-10-08').'_2".*>/iU', $select, $html);
 	}
@@ -96,7 +111,7 @@ function my_wpcf7_form_elements($html) {
 
 	//ov3rfly_replace_defaults('your-name', 'text', $received_data->name, $html);
 	//ov3rfly_replace_defaults('your-subject', 'text', $received_data->subject, $html);
-	ov3rfly_replace_defaults('order-date', 'date', $received_data->value, $html);
+	//ov3rfly_replace_defaults('order-date', 'date', $received_data->value, $html);
 	
 	// <input type="email" name="your-email" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" aria-required="true" aria-invalid="false">
 
@@ -120,16 +135,15 @@ function get_prefetch_data_from_db(){
 }
 
 // get the positions order quantity for specific dates
-function get_positions_order_from_db($date_start, $date_end, $id){
+function get_positions_order($date_start, $date_end, $id){
 	global $wpdb;
 	$results = array(array());
 	$positions_quantity = $wpdb->get_results( 
 	"
-	SELECT position_id, quantity, date FROM 42_positions_order 
-	WHERE 
-	(42_positions_order.date BETWEEN '2018-10-08' AND '2018-10-14')
-	AND order_id=3 
-	"
+	SELECT position_id, quantity, date 
+	FROM 42_positions_order 
+	WHERE order_id=".$id." AND 
+	(42_positions_order.date BETWEEN '".$date_start."' AND '".$date_end."')"
 	);
 	foreach ( $positions_quantity as $position ) 
 	{
@@ -138,8 +152,25 @@ function get_positions_order_from_db($date_start, $date_end, $id){
 	return $results;
 }
 
+function get_client_point($user){
+	global $wpdb;
+	$id = $wpdb->get_var( "SELECT meta.meta_value 
+		FROM $wpdb->users AS user , 
+		$wpdb->usermeta AS meta  
+		WHERE meta.user_id=user.id 
+		AND user.user_login='$user' 
+		AND meta.meta_key='_client_point'" );
+	return $id;
+}
 
-// SELECT * FROM `42_positions_order` WHERE date='2018-10-08' AND order_id=3
+function get_client_order($date_start, $date_end, $client_point){
+	global $wpdb;
+	$order_id = $wpdb->get_var( "SELECT order_id
+		FROM 42_client_order   
+		WHERE client_link=".$client_point."
+		AND date BETWEEN '".$date_start."' AND '".$date_end."'");
+	return $order_id;
+}
          
 // add the filter 
 add_filter( 'wpcf7_form_elements', 'filter_wpcf7_form_elements', 10, 1 ); 
@@ -161,7 +192,11 @@ function debug_hello($posted_data){
 
 	$form = wpcf7_get_current_contact_form();
 
-	 echo '<pre>'.print_r( $current_user->display_name , true ).'</pre>';
+	echo '<pre>'.print_r( $current_user->ID , true ).'</pre>';
+	echo '<pre>'.print_r( get_user_meta($current_user->ID) , true ).'</pre>';
+	echo '<pre>'.print_r( get_user_meta($current_user->ID, '_company', true) , true ).'</pre>';
+	echo '<pre>'.print_r( get_user_meta($current_user->ID, '_client_point', true) , true ).'</pre>';
+
 	 echo '<pre>'.print_r(  $posted_data, true ).'</pre>';
 	 var_dump($_GET);
 	 var_dump($_POST);
@@ -203,7 +238,7 @@ function action_wpcf7_data( $posted_data ) {
 	return $posted_data; 
 }
 
-add_filter( 'wpcf7_posted_data', 'action_wpcf7_data', 10, 1 ); 
+//add_filter( 'wpcf7_posted_data', 'action_wpcf7_data', 10, 1 ); 
 
 //the input is any date in yyyy-mm-dd format and output is the array with 7 dates set according to the week this date belongs. 
 function get_week($date){
@@ -241,7 +276,7 @@ function get_weekday($date){
 }
 
 add_action( 'wp_footer', 'cf7_redirect' );
-//add_action( 'wp_footer', 'cf7_check_params_on_submit' );
+add_action( 'wp_footer', 'cf7_check_params_on_submit' );
 //add_filter( 'the_content', 'debug_hello' );
 add_filter('wpcf7_form_name_attr', 'debug_hello', 10, 3);
 // add_filter( 'wpcf7_form_tag', 'update_date_labels', 10, 2);
@@ -252,7 +287,7 @@ add_filter('wpcf7_form_name_attr', 'debug_hello', 10, 3);
 function cf7_redirect() {
 ?>
 <script type="text/javascript">
-document.addEventListener( 'wpcf7mailsent', function( event ) {
+document.addEventListener( 'wpcf7submit', function( event ) {
     if ( '10' == event.detail.contactFormId ) {
        location = 'http://r2d2.local/wp/thanks/';
     } 
@@ -261,15 +296,18 @@ document.addEventListener( 'wpcf7mailsent', function( event ) {
 		//alert(event.detail);
 		console.log(event.detail);
 		var orderDate='2019-01-01'; //defaut value
+		var username='';
 		// Ищем поле с именем order-date и злоупотребляем alert'ом при нахождении поля
 		for ( var i = 0; i < inputs.length; i++ ) {
 			if ( 'order-date' == inputs[i].name ) {
 				orderDate = inputs[i].value; //TODO: fix the search method
 				//alert( orderDate );
-				break;
+			}
+			else if ( 'username' == inputs[i].name ) {
+				username = inputs[i].value; //TODO: fix the search method
 			}
 		}
-    	location = 'http://r2d2.local/wp/%D1%80%D0%BE%D0%B4%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D1%81%D0%BA%D0%B0%D1%8F-%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B0-%D0%B4%D0%BB%D1%8F-%D1%84%D0%BE%D1%80%D0%BC/orders/?order-date=' + orderDate;
+    	location = 'http://r2d2.local/wp/%D1%80%D0%BE%D0%B4%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D1%81%D0%BA%D0%B0%D1%8F-%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B0-%D0%B4%D0%BB%D1%8F-%D1%84%D0%BE%D1%80%D0%BC/orders/?order-date=' + orderDate + '&username='+username;
     } 
 }, false );
 </script>
