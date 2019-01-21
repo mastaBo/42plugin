@@ -1,17 +1,17 @@
 <?php
 /**
  * @package test plugin
- * @version 1.0
+ * @version 1.1
  */
 /*
-Plugin Name: Test Plugin for data generation
+Plugin Name: Dymanic data manipulation on CF7 forms, wpforms, wpdatatables. 
+
 Plugin URI: http://#
-Description: This is plugin to tesst forms ald list creation for custom data 
+Description: This plugin is made for custom wp development and aim very specific use case of genearting and processing cf7 form data based on DB select contents. It makes the form extremely flexible and generated on-flght from DB. Results are also processed on-flight and sent to DB. Other plugins are used for custom user registration forms and data representation and submit.
 Author: Bob Dee
 Version: 1.0
 Author URI: http://#
 */
-
 
 
 add_action( 'init', function() {
@@ -22,17 +22,6 @@ add_action( 'init', function() {
 	new Client_Admin_Menu();
 });
 
-
-
-// // define the wpcf7_form_elements callback 
-// function filter_wpcf7_form_elements( $this_replace_all_form_tags ) { 
-//     // make filter magic happen here... 
-//     echo 'magic';
-//     //echo $this_replace_all_form_tags;
-//     return 'magic'; 
-// } 
-
-
 // update headers of columns with dates instead of the name labels
 function filter_wpcf7_form_elements( $html ) {
 	$main_form_id=10;
@@ -41,83 +30,68 @@ function filter_wpcf7_form_elements( $html ) {
 	if ($main_form_id == $form->id()){
 		$received_date = $_GET["order-date"];
 		$username = $_GET["username"];
-		echo " The received date is ".$received_date;
+
+		//$today_date = date('Y-m-d', strtotime("today"));
+
 		$week_dates = get_week($received_date);
+		substitute_dates($html, $week_dates);
 
-		$html = str_replace('<label>пн</label>', '<label>'.convert_date($week_dates[0]).'</label>', $html);
-		$html = str_replace('<label>вт</label>', '<label>'.convert_date($week_dates[1]).'</label>', $html);
-		$html = str_replace('<label>ср</label>', '<label>'.convert_date($week_dates[2]).'</label>', $html);
-		$html = str_replace('<label>чт</label>', '<label>'.convert_date($week_dates[3]).'</label>', $html);
-		$html = str_replace('<label>пт</label>', '<label>'.convert_date($week_dates[4]).'</label>', $html);
-		$html = str_replace('<label>сб</label>', '<label>'.convert_date($week_dates[5]).'</label>', $html);
-		$html = str_replace('<label>вс</label>', '<label>'.convert_date($week_dates[6]).'</label>', $html);
+		$client_point_id=get_client_point_id($username);
+		$client_point = get_client_point($client_point_id);	
+		//FIXME remove the hack for order id 
+		$order_id = get_client_order($week_dates[0], $week_dates[6], $client_point_id);
+		//$order_id = get_client_order('2018-10-08', '2018-10-14', $client_point_id);
+		if(null != $order_id){
+		error_log("non empty order");
 
-		$html = str_replace('<label>mon</label>', '<label>'.convert_date($week_dates[0]).'</label>', $html);
-		$html = str_replace('<label>tue</label>', '<label>'.convert_date($week_dates[1]).'</label>', $html);
-		$html = str_replace('<label>wed</label>', '<label>'.convert_date($week_dates[2]).'</label>', $html);
-		$html = str_replace('<label>thu</label>', '<label>'.convert_date($week_dates[3]).'</label>', $html);
-		$html = str_replace('<label>fri</label>', '<label>'.convert_date($week_dates[4]).'</label>', $html);
-		$html = str_replace('<label>sat</label>', '<label>'.convert_date($week_dates[5]).'</label>', $html);
-		$html = str_replace('<label>sun</label>', '<label>'.convert_date($week_dates[6]).'</label>', $html);
-
-		$point_id=get_client_point($username);
-		echo " point ID ".$point_id;
-		$order_id = get_client_order('2018-10-08', '2018-10-14', $point_id);
-		echo " order ID ".$order_id;
-		$positions = get_positions_order('2018-10-08', '2018-10-14', $order_id);
-		//position_id, quantity, date
-		echo " positions ".var_dump($positions);
-		$select = '<input type="number" name="'.get_weekday('2018-10-08').'_2" value="" class="wpcf7-form-control wpcf7-number wpcf7-validates-as-number" id="'.get_weekday('2018-10-08').'_2" min="0" aria-invalid="false" placeholder="'.$positions['2018-10-08'][2].'">';
-		$html = preg_replace('/<input type="number" name="'.get_weekday('2018-10-08').'_2".*>/iU', $select, $html);
-	}
-	// elseif ($pre_form_id  == $form->id()){
-	// 	$received_data = get_prefetch_data_from_db();
-
-	// 	$string = '<input type="text" name="your-name" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false">';
-	// 	$pattern = '/\<(.*) name="your-name" (.*)\>/i';
-	// 	$replacement = '<$1 name="your-name" $2 placeholder='.$received_data->name.'>';
-	// 	echo " Here is the received data ".$received_data->name;
-	// 	$res_name = preg_replace($pattern, $replacement, $html);
-	// 	// echo " Here is the result \n".$res_name."\n";
-
-	// 	$matches = false;
-	// 	preg_match('/<input type="text" name="your-name".*[^>]*>(.*)>/iU', $html, $matches); 
-	// 	if ($matches) {
-			// $select = '<input type="text" name="your-name" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="here is my text">';
-			// $html = preg_replace('/<input type="text" name="your-name".*[^>]*>(.*)>/iU', $select, $html);
-	// 	}
-
-		// $html = str_replace(
-		// 	'<input type=\"text\" name=\"your-name\" value=\"\" size=\"40\" class=\"wpcf7-form-control wpcf7-text wpcf7-validates-as-required\" aria-required=\"true\" aria-invalid=\"false\">',
-		//  	'<input type=\"text\" name=\"your-name\" value=\"XXX\" size=\"40\" class=\"wpcf7-form-control wpcf7-text wpcf7-validates-as-required\" aria-required=\"true\" aria-invalid=\"false\" placeholder=\"here is my text\">', 
-		//  	$html);
-	// }
-	return $html;
-}
-
-function my_wpcf7_form_elements($html) {
-	
-	function ov3rfly_replace_defaults($name, $type, $text, &$html) {
-		$matches = false;
-		preg_match('/<input type="'.$type.'" name="'.$name.'"(.*)>/iU', $html, $matches); 
-		if ($matches) {
-			echo " matched for ".$type." and ".$name;
-			$select = '<input type="'.$type.'" name="'.$name.'" value="'.$text.'" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false">';
-			$html = preg_replace('/<input type="'.$type.'" name="'.$name.'"(.*)>/iU', $select, $html);
+		} else {
+			//here we shold add the order to DB
+			error_log("empty order");
+	  		$order_id=put_client_order($week_dates[0], $client_point_id);
 		}
+		//$fake_order = get_client_order($week_dates[0], $week_dates[6], $client_point_id);
+		
+		error_log("Fake order ");
+		error_log( print_r( $fake_order, 1 ));
+
+		$pos_list = get_positions();
+		$client_name = get_client_name($client_point->company_id);
+		echo "client_name = ".$client_name;
+		//var_dump($pos_list);
+		$positions_order = get_positions_order($week_dates[0], $week_dates[6], $order_id);
+		
+		foreach ($pos_list as $pos) {
+			// here we should take the same week we done select for 
+			generate_table_row($html, $pos, $positions_order, $week_dates);
+			//generate_table_row($html, $pos, $positions_order, get_week('2018-10-09'));
+		}
+
+
+		replace_hidden_defaults('order_id', 'hidden', $order_id, $html);
+		replace_hidden_defaults('client_name', 'hidden', $client_name, $html); 
+		replace_hidden_defaults('client_point_name', 'hidden', $client_point->name, $html);
+		replace_hidden_defaults('address', 'hidden', $client_point->address, $html);
+		replace_hidden_defaults('start_date', 'hidden', $week_dates[0], $html);
+		replace_hidden_defaults('end_date', 'hidden', $week_dates[6], $html);
+
+		
+		//position_id, quantity, date
+		// $select = '<input type="number" name="'.get_weekday('2018-10-08').'_2" value="" class="wpcf7-form-control wpcf7-number wpcf7-validates-as-number" id="'.get_weekday('2018-10-08').'_2" min="0" aria-invalid="false" placeholder="'.$positions_order[2]['2018-10-08'].'">';
+		// $html = preg_replace('/<input type="number" name="'.get_weekday('2018-10-08').'_2".*>/iU', $select, $html);
 	}
-
-	$received_data = get_prefetch_data_from_db();
-
-	//ov3rfly_replace_defaults('your-name', 'text', $received_data->name, $html);
-	//ov3rfly_replace_defaults('your-subject', 'text', $received_data->subject, $html);
-	//ov3rfly_replace_defaults('order-date', 'date', $received_data->value, $html);
-	
-	// <input type="email" name="your-email" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" aria-required="true" aria-invalid="false">
-
 	return $html;
 }
-add_filter('wpcf7_form_elements', 'my_wpcf7_form_elements');
+
+
+function replace_hidden_defaults($name, $type, $text, &$html) {
+	$matches = false;
+	preg_match('/<input type="'.$type.'" name="'.$name.'"(.*)>/iU', $html, $matches); 
+	if ($matches) {
+		echo " matched for ".$type." and ".$name;
+		$select = '<input type="'.$type.'" name="'.$name.'" value="'.$text.'" class="wpcf7-form-control wpcf7-hidden">';
+		$html = preg_replace('/<input type="'.$type.'" name="'.$name.'"(.*)>/iU', $select, $html);
+	}
+}
 
 //getting the data from database to fill the fields in form
 function get_prefetch_data_from_db(){
@@ -147,12 +121,40 @@ function get_positions_order($date_start, $date_end, $id){
 	);
 	foreach ( $positions_quantity as $position ) 
 	{
-		$results[$position->date][$position->position_id] = $position->quantity;
+		$results[$position->position_id][$position->date] = $position->quantity;
 	}
 	return $results;
 }
 
-function get_client_point($user){
+############################
+function put_positions_order($date_start, $date_end, $id){
+	global $wpdb;
+	$results = array(array());
+	$positions_quantity = $wpdb->get_results( 
+	"
+	SELECT position_id, quantity, date 
+	FROM 42_positions_order 
+	WHERE order_id=".$id." AND 
+	(42_positions_order.date BETWEEN '".$date_start."' AND '".$date_end."')"
+	);
+	foreach ( $positions_quantity as $position ) 
+	{
+		$results[$position->position_id][$position->date] = $position->quantity;
+	}
+	return $results;
+}
+
+function put_client_order($date_start, $client_point){
+	global $wpdb;
+
+	$res = $wpdb->insert("42_client_order", array(
+               "client_link" => $client_point,
+               "date" => $date_start,
+       )); 
+	return $res;
+}
+
+function get_client_point_id($user){
 	global $wpdb;
 	$id = $wpdb->get_var( "SELECT meta.meta_value 
 		FROM $wpdb->users AS user , 
@@ -163,6 +165,14 @@ function get_client_point($user){
 	return $id;
 }
 
+function get_client_point($point_id){
+	global $wpdb;
+	$client_point = $wpdb->get_row( "SELECT id, name, address, company_id
+		FROM 42_client_point   
+		WHERE id=".$point_id );
+	return $client_point;
+}
+
 function get_client_order($date_start, $date_end, $client_point){
 	global $wpdb;
 	$order_id = $wpdb->get_var( "SELECT order_id
@@ -171,7 +181,102 @@ function get_client_order($date_start, $date_end, $client_point){
 		AND date BETWEEN '".$date_start."' AND '".$date_end."'");
 	return $order_id;
 }
-         
+
+function get_client_name($client_id){
+	global $wpdb;
+	$name = $wpdb->get_var( "SELECT name
+		FROM 42_clients   
+		WHERE id=".$client_id);
+	return $name;
+}
+
+function get_positions(){
+	global $wpdb;
+	$positions = $wpdb->get_results( "SELECT id, name
+		FROM 42_positions   
+		WHERE activity_status='active'");
+	return $positions;
+}
+
+function substitute_dates(&$html, $week_dates){
+		$html = str_replace('<label>пн</label>', '<label>'.convert_date($week_dates[0]).'</label>', $html);
+		$html = str_replace('<label>вт</label>', '<label>'.convert_date($week_dates[1]).'</label>', $html);
+		$html = str_replace('<label>ср</label>', '<label>'.convert_date($week_dates[2]).'</label>', $html);
+		$html = str_replace('<label>чт</label>', '<label>'.convert_date($week_dates[3]).'</label>', $html);
+		$html = str_replace('<label>пт</label>', '<label>'.convert_date($week_dates[4]).'</label>', $html);
+		$html = str_replace('<label>сб</label>', '<label>'.convert_date($week_dates[5]).'</label>', $html);
+		$html = str_replace('<label>вс</label>', '<label>'.convert_date($week_dates[6]).'</label>', $html);
+
+		$html = str_replace('<label>mon</label>', '<label>'.convert_date($week_dates[0]).'</label>', $html);
+		$html = str_replace('<label>tue</label>', '<label>'.convert_date($week_dates[1]).'</label>', $html);
+		$html = str_replace('<label>wed</label>', '<label>'.convert_date($week_dates[2]).'</label>', $html);
+		$html = str_replace('<label>thu</label>', '<label>'.convert_date($week_dates[3]).'</label>', $html);
+		$html = str_replace('<label>fri</label>', '<label>'.convert_date($week_dates[4]).'</label>', $html);
+		$html = str_replace('<label>sat</label>', '<label>'.convert_date($week_dates[5]).'</label>', $html);
+		$html = str_replace('<label>sun</label>', '<label>'.convert_date($week_dates[6]).'</label>', $html);
+}
+
+function generate_table_row(&$html, $position, $positions_order, $week_dates){
+	$row_header_template = "
+<div class=\"row\">
+    <div class=\"columns five\">
+      <div class=\"field\"><label>".$position->name."</label>
+      </div>
+    </div>
+    ";
+  
+  	$row_footer_template="</div>";
+  	$generated_row = $row_header_template.print_rows_for_week($position, $positions_order, $week_dates).$row_footer_template;
+	$html = str_replace('<!-- HERE IS THE PLACEHOLDER -->',$generated_row.'<!-- HERE IS THE PLACEHOLDER -->', $html);
+}
+
+
+function print_rows_for_week($position, $positions_order, $week_dates){	
+ $res='';
+ #TODO add check for empty row. In this case print the default one 
+ $array_of_dates = $positions_order[$position->id];
+ if(null == $array_of_dates){
+ 	// here we got no any values for the product in DB
+ 	//in this case we should return 7 lines with no value tag
+ 	for ($i=0; $i < 7; $i++){
+ 		$identifier=$week_dates[$i]."_".$position->id;
+ 		$res = $res."
+ 		<div class=\"columns one\">
+      		<div class=\"field\"><span class=\"wpcf7-form-control-wrap ".$identifier."\">
+				<input type=\"number\" name=\"".$identifier."\" value=\"\" class=\"wpcf7-form-control wpcf7-number wpcf7-validates-as-number\" id=".$identifier." min=\"0\" aria-invalid=\"false\" placeholder=\"0\">
+	  		</div>
+	  	</div>";
+ 	}
+ }
+ else {
+
+ 	for ($i=0; $i < 7; $i++){
+		$identifier=$week_dates[$i]."_".$position->id;
+		$value = $array_of_dates["$week_dates[$i]"];
+
+ 		if($value){
+ 			$res = $res."
+ 			<div class=\"columns one\">
+      			<div class=\"field\"><span class=\"wpcf7-form-control-wrap ".$identifier."\">
+					<input type=\"number\" name=\"".$identifier."\" value=\"".$value."\" class=\"wpcf7-form-control wpcf7-number wpcf7-validates-as-number\" id=".$identifier." min=\"0\" aria-invalid=\"false\" placeholder=\"".$value."\">
+	  			</div>
+	  		</div>";
+ 		} 
+ 		else {
+ 			$res = $res."
+ 				<div class=\"columns one\">
+      				<div class=\"field\"><span class=\"wpcf7-form-control-wrap ".$identifier."\">
+					<input type=\"number\" name=\"".$identifier."\" value=\"\" class=\"wpcf7-form-control wpcf7-number wpcf7-validates-as-number\" id=".$identifier." min=\"0\" aria-invalid=\"false\" placeholder=\"0\">
+	  				</div>
+	  			</div>"; 		
+	  	}	
+ 	}
+ }
+ return $res;
+}
+
+
+
 // add the filter 
 add_filter( 'wpcf7_form_elements', 'filter_wpcf7_form_elements', 10, 1 ); 
 
@@ -194,10 +299,7 @@ function debug_hello($posted_data){
 
 	echo '<pre>'.print_r( $current_user->ID , true ).'</pre>';
 	echo '<pre>'.print_r( get_user_meta($current_user->ID) , true ).'</pre>';
-	echo '<pre>'.print_r( get_user_meta($current_user->ID, '_company', true) , true ).'</pre>';
-	echo '<pre>'.print_r( get_user_meta($current_user->ID, '_client_point', true) , true ).'</pre>';
-
-	 echo '<pre>'.print_r(  $posted_data, true ).'</pre>';
+	echo '<pre>'.print_r(  $posted_data, true ).'</pre>';
 	 var_dump($_GET);
 	 var_dump($_POST);
 	 if ($form->name() == 'prefetch') {
@@ -218,27 +320,45 @@ function action_wpcf7_data( $posted_data ) {
 	$main_form_id=10;
 
 	$form = wpcf7_get_current_contact_form();
+	error_log( "Form data: ");
+	error_log( print_r( $form, 1 ));
 
-	if($pre_form_id  == $form->id())
+	if($main_form_id  == $form->id())
 	{
-		$wpdb->insert("tmp_submission", array(
-   		"name" => $posted_data["your-name"],
-   		"subject" => $posted_data["your-subject"],
-   		"mail" => $posted_data["your-email"],
-   		"value" => $posted_data["order-date"],
-	)); 
-	}
-	elseif($main_form_id  == $form->id())
-	{
-		$wpdb->insert("tmp_submission", array(
-   		"name" => "main_form",
-   		"value" => $posted_data["date-start"],
-	));
+		// filling the DB with data from submmitted form
+		$keys = array_keys($posted_data);
+		
+		//keys array cleanup
+		$keys = array_diff($keys, array('address','order_id','client_name', 'client_point_name', 'email', 'first_name', 'last_name', 'start_date', 'end_date',  'acceptance-151', '_wpcf7', '_wpcf7_version', '_wpcf7_locale', '_wpcf7_unit_tag', '_wpcf7_container_post', '_wpcf7_key', '_cf7sg_toggles'));
+
+		$wpdb->query('START TRANSACTION');
+		//fill the client_order tabel with new value if applicable 
+		//make pre-select
+
+
+		//$posted_data['order_id']
+		
+		//fill the positions_order table 
+		foreach ($posted_data as $key => $value) {
+			if(in_array($key, $keys)) {
+				$pair = explode('_', $key);
+				$date = $pair[0];
+				$product = $pair[1];
+
+				$wpdb->replace("42_positions_order", array(
+				"order_id" => $posted_data['order_id'],
+   				"date" => $date ,
+   				"position_id" => $product ,
+   				"quantity" => $value ,
+				));
+			}
+		}
+		$wpdb->query('COMMIT'); 
 	}
 	return $posted_data; 
 }
 
-//add_filter( 'wpcf7_posted_data', 'action_wpcf7_data', 10, 1 ); 
+add_filter( 'wpcf7_posted_data', 'action_wpcf7_data', 10, 1 ); 
 
 //the input is any date in yyyy-mm-dd format and output is the array with 7 dates set according to the week this date belongs. 
 function get_week($date){
@@ -277,8 +397,7 @@ function get_weekday($date){
 
 add_action( 'wp_footer', 'cf7_redirect' );
 add_action( 'wp_footer', 'cf7_check_params_on_submit' );
-//add_filter( 'the_content', 'debug_hello' );
-add_filter('wpcf7_form_name_attr', 'debug_hello', 10, 3);
+//add_filter('wpcf7_form_name_attr', 'debug_hello', 10, 3);
 // add_filter( 'wpcf7_form_tag', 'update_date_labels', 10, 2);
 
 //add_action( 'wpcf7_before_send_mail', 'debug_filter' ); 
